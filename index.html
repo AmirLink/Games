@@ -159,6 +159,7 @@ mats.wood.map=woodTexture;mats.wood.needsUpdate=true;
 
 function box(w,h,d,mat,x,y,z,cast=true,receive=true){const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);m.position.set(x,y,z);m.castShadow=cast;m.receiveShadow=receive;scene.add(m);return m;}
 const trimMat=new THREE.MeshStandardMaterial({color:0x647985,metalness:.28,roughness:.55});
+const obstacles=[];
 // Office floor and tile seams
 box(72,.35,56,mats.floor,0,-.25,0,false,true);
 const grid=new THREE.GridHelper(72,72,0xa8bac3,0xb8c7ce);grid.position.y=-.065;scene.add(grid);
@@ -220,7 +221,6 @@ for(const x of [-30,-15,0,15,30])for(const z of [-21,-7,7,21]){
  const glowMat=new THREE.MeshBasicMaterial({color:0xffe7c2,transparent:true,opacity:.72});
  box(1.62,.018,.52,glowMat,x,3.445,z,false,false);
 }
-const obstacles=[];
 function addObstacle(x,z,w,d,type='desk'){
  if(type==='desk'){
   box(w,.18,d,mats.woodLight,x,.85,z);box(w+.12,.12,d+.12,mats.wood,x,.72,z);box(w+.04,.035,.035,deskTrimMat,x,.69,z+d/2+.055,false,false);
