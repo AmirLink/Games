@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-<title>Офисный апокалипсис — V4.9 Visual & AI Upgrade</title>
+<title>Офисный апокалипсис — V5.3 Expanded Office</title>
 <style>
 :root{--ink:#17202b;--muted:#6d7784;--panel:rgba(255,255,255,.92);--orange:#ff8a35;--red:#ed5656;--green:#43b879;}
 *{box-sizing:border-box} html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#dce6eb;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink)}
@@ -52,7 +52,7 @@
 <div id="game" aria-label="3D офисная игра"></div>
 <div class="hud" id="hud">
   <div class="top">
-    <div class="brand"><div class="eyebrow">SURVIVAL · DIRECTOR'S CUT V4.7</div><h1>ОФИСНЫЙ АПОКАЛИПСИС</h1><p>Офис помнит каждый твой шаг. Выполни смену и не попадись начальнику.</p></div>
+    <div class="brand"><div class="eyebrow">SURVIVAL · EXPANDED CAMPUS V5.3</div><h1>ОФИСНЫЙ АПОКАЛИПСИС</h1><p>Офис помнит каждый твой шаг. Выполни смену и не попадись начальнику.</p></div>
     <div class="stats">
       <div class="stat score"><small>Очки</small><strong id="score">000</strong></div>
       <div class="stat"><small>Документы</small><strong id="docs">0</strong></div>
@@ -65,7 +65,7 @@
 </div>
 <div class="mobile-controls" id="mobileControls"><button class="dir up" data-dir="up">↑</button><button class="dir left" data-dir="left">←</button><button class="dir down" data-dir="down">↓</button><button class="dir right" data-dir="right">→</button></div>
 <button class="mobile-action" id="dashBtn">RUSH</button><div id="coverStatus" style="position:fixed;left:50%;top:calc(18% + 44px);transform:translateX(-50%);padding:8px 13px;border-radius:10px;background:#174b42dd;color:#eafff6;font:800 12px system-ui;display:none;pointer-events:none;z-index:5">🛡️ УКРЫТИЕ · Q/E — выглянуть · C — выйти</div><div id="stealthStatus" style="position:fixed;left:50%;top:18%;transform:translateX(-50%);padding:10px 16px;border-radius:12px;background:#101820dd;color:#eaf6ef;font:800 13px system-ui;letter-spacing:.5px;display:none;pointer-events:none;z-index:5">🤫 ВЫ ПРЯЧЕТЕСЬ — E, чтобы выйти</div><div id="interactPrompt" style="position:fixed;left:50%;top:calc(50% + 28px);transform:translateX(-50%);padding:7px 12px;border-radius:9px;background:#17202ddd;color:#fff;font:700 12px system-ui;display:none;pointer-events:none;z-index:4">E — взаимодействовать</div><div id="crosshair" style="position:fixed;left:50%;top:50%;width:12px;height:12px;transform:translate(-50%,-50%);pointer-events:none;z-index:2;opacity:.85"><i style="position:absolute;left:5px;top:0;width:2px;height:12px;background:#fff;box-shadow:0 1px 3px #18232d"></i><i style="position:absolute;left:0;top:5px;width:12px;height:2px;background:#fff;box-shadow:0 1px 3px #18232d"></i></div><div id="lookHint" style="position:fixed;left:50%;bottom:22px;transform:translateX(-50%);padding:8px 13px;border-radius:10px;background:#17202bcc;color:white;font:700 11px system-ui;pointer-events:none;z-index:3">Кликни по игре для управления мышью</div>
-<div id="eventBanner" class="event-banner hidden" aria-live="polite"></div><div class="overlay" id="startOverlay"><div class="modal"><div class="icon">👁️</div><div class="eyebrow">FIRST PERSON · V5.2 REAL OFFICE ENVIRONMENT</div><h2>Смена начинается</h2><p>Теперь ты внутри офиса. Осматривайся мышью, собирай документы, прячься за мебелью и уходи от начальника. Кликни по экрану, чтобы захватить мышь. WASD — движение, Shift — бег, Space — рывок, Esc — пауза.</p><button class="ui-btn primary" id="startBtn">Начать смену</button><button class="ui-btn secondary" id="howBtn">Как играть</button><button class="ui-btn secondary" id="startSettingsBtn">⚙ Настройки</button></div></div>
+<div id="eventBanner" class="event-banner hidden" aria-live="polite"></div><div class="overlay" id="startOverlay"><div class="modal"><div class="icon">👁️</div><div class="eyebrow">FIRST PERSON · V5.3 EXPANDED OFFICE</div><h2>Смена начинается</h2><p>Исследуй большой офисный комплекс с новыми отделами, длинными коридорами и укромными комнатами. Собирай документы, прячься за мебелью и уходи от начальника. Кликни по экрану, чтобы захватить мышь. WASD — движение, Shift — бег, Space — рывок, Esc — пауза.</p><button class="ui-btn primary" id="startBtn">Начать смену</button><button class="ui-btn secondary" id="howBtn">Как играть</button><button class="ui-btn secondary" id="startSettingsBtn">⚙ Настройки</button></div></div>
 <div class="overlay hidden" id="settingsOverlay"><div class="modal">
  <div class="icon">⚙️</div><h2>Настройки</h2><p>Настрой звук и качество изображения под своё устройство.</p>
  <div class="settings-grid">
@@ -126,7 +126,7 @@ const leftHand=makeHand('left'),rightHand=makeHand('right');
 handRig.position.set(0,0,0);handRig.renderOrder=10;handRig.frustumCulled=false;
 let handAction=0,handActionUntil=0;
 
-scene.add(new THREE.HemisphereLight(0xffffff,0x8b9da9,1.35));const sun=new THREE.DirectionalLight(0xfff1d7,1.6);sun.position.set(-8,18,9);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);sun.shadow.bias=-0.00018;sun.shadow.normalBias=.025;sun.shadow.radius=5;sun.shadow.camera.left=-22;sun.shadow.camera.right=22;sun.shadow.camera.top=22;sun.shadow.camera.bottom=-22;scene.add(sun);
+scene.add(new THREE.HemisphereLight(0xffffff,0x8b9da9,1.35));const sun=new THREE.DirectionalLight(0xfff1d7,1.6);sun.position.set(-8,18,9);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);sun.shadow.bias=-0.00018;sun.shadow.normalBias=.025;sun.shadow.radius=5;sun.shadow.camera.left=-36;sun.shadow.camera.right=36;sun.shadow.camera.top=28;sun.shadow.camera.bottom=-28;scene.add(sun);
 const mats={floor:new THREE.MeshStandardMaterial({color:0xcbd7dc,roughness:.48,metalness:.075}),tile:new THREE.MeshStandardMaterial({color:0xc5d2d8,roughness:.9}),wall:new THREE.MeshStandardMaterial({color:0xe8e8df,roughness:.9}),dark:new THREE.MeshStandardMaterial({color:0x4d5c66,roughness:.72}),wood:new THREE.MeshStandardMaterial({color:0x8b674e,roughness:.68}),woodLight:new THREE.MeshStandardMaterial({color:0xc39b72,roughness:.58}),metal:new THREE.MeshStandardMaterial({color:0x7b8d98,metalness:.42,roughness:.42}),screen:new THREE.MeshStandardMaterial({color:0x263d4c,emissive:0x24718d,emissiveIntensity:.8,roughness:.28}),green:new THREE.MeshStandardMaterial({color:0x45936d,roughness:.8}),paper:new THREE.MeshStandardMaterial({color:0xffd66d,emissive:0x7a4b00,emissiveIntensity:.22}),red:new THREE.MeshStandardMaterial({color:0xe75d4d,roughness:.6}),blue:new THREE.MeshStandardMaterial({color:0x4389c9,roughness:.65}),skin:new THREE.MeshStandardMaterial({color:0xf0b48a,roughness:.8}),shirt:new THREE.MeshStandardMaterial({color:0x347f9e,roughness:.75}),boss:new THREE.MeshStandardMaterial({color:0x9f3940,roughness:.7}),pants:new THREE.MeshStandardMaterial({color:0x344251,roughness:.8}),white:new THREE.MeshStandardMaterial({color:0xf5f6f3,roughness:.8})};
 
 // V4.9 procedural surface maps: self-contained textures generated at runtime.
@@ -150,7 +150,7 @@ function makePatternTexture(kind){
  }
  const tex=new THREE.CanvasTexture(c);tex.wrapS=tex.wrapT=THREE.RepeatWrapping;tex.colorSpace=THREE.SRGBColorSpace;tex.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());return tex;
 }
-const floorTexture=makePatternTexture('floor');floorTexture.repeat.set(4,3);
+const floorTexture=makePatternTexture('floor');floorTexture.repeat.set(7,5);
 const wallTexture=makePatternTexture('wall');wallTexture.repeat.set(2,1);
 const woodTexture=makePatternTexture('wood');woodTexture.repeat.set(1.2,1);
 mats.floor.map=floorTexture;mats.floor.needsUpdate=true;
@@ -160,11 +160,19 @@ mats.wood.map=woodTexture;mats.wood.needsUpdate=true;
 function box(w,h,d,mat,x,y,z,cast=true,receive=true){const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);m.position.set(x,y,z);m.castShadow=cast;m.receiveShadow=receive;scene.add(m);return m;}
 const trimMat=new THREE.MeshStandardMaterial({color:0x647985,metalness:.28,roughness:.55});
 // Office floor and tile seams
-box(42,.35,34,mats.floor,0,-.25,0,false,true);
-const grid=new THREE.GridHelper(42,42,0xa8bac3,0xb8c7ce);grid.position.y=-.065;scene.add(grid);
-// low office boundary walls
-box(42,3.45,.42,mats.wall,0,1.55,-17,false,true);box(42,3.45,.42,mats.wall,0,1.55,17,false,true);box(.42,3.45,34,mats.wall,-21,1.55,0,false,true);box(.42,3.45,34,mats.wall,21,1.55,0,false,true);
-for(const [x,z,w,d] of [[0,-16.76,42,.08],[0,16.76,42,.08],[-20.76,0,.08,34],[20.76,0,.08,34]])box(w,.12,d,trimMat,x,3.32,z,false,false);
+box(72,.35,56,mats.floor,0,-.25,0,false,true);
+const grid=new THREE.GridHelper(72,72,0xa8bac3,0xb8c7ce);grid.position.y=-.065;scene.add(grid);
+// The original office opens into four new wings through broad, marked passages.
+for(const z of [-17,17])for(const [a,b] of [[-21,-2.5],[2.5,21]]){
+ const len=b-a;box(len,3.45,.42,mats.wall,(a+b)/2,1.55,z,false,true);obstacles.push({x:(a+b)/2,z,rx:len/2,rz:.48,type:'wall'});
+}
+for(const x of [-21,21])for(const [a,b] of [[-17,-2.5],[2.5,17]]){
+ const len=b-a;box(.42,3.45,len,mats.wall,x,1.55,(a+b)/2,false,true);obstacles.push({x,z:(a+b)/2,rx:.48,rz:len/2,type:'wall'});
+}
+// Outer perimeter walls and their continuous collision boundary.
+box(72,4.2,.48,mats.wall,0,1.9,-28,false,true);box(72,4.2,.48,mats.wall,0,1.9,28,false,true);
+box(.48,4.2,56,mats.wall,-36,1.9,0,false,true);box(.48,4.2,56,mats.wall,36,1.9,0,false,true);
+for(const [x,z,w,d] of [[0,-27.72,72,.08],[0,27.72,72,.08],[-35.72,0,.08,56],[35.72,0,.08,56]])box(w,.12,d,trimMat,x,3.96,z,false,false);
 // windows along back wall
 for(let x=-11;x<=11;x+=5.5){box(3.3,1.7,.09,new THREE.MeshStandardMaterial({color:0x8ed3e4,emissive:0x397d8c,emissiveIntensity:.25}),x,.95,-11.78,false,false);box(3.42,.12,.16,mats.white,x,1.82,-11.7,false,false);box(.1,1.8,.16,mats.white,x,.95,-11.7,false,false);}
 
@@ -196,17 +204,17 @@ let ceilingLights=[];
 
 // V5.2 interior ceiling: closes the visible sky gap and makes the office read as an indoor space.
 const ceilingMat=new THREE.MeshStandardMaterial({color:0xd9e0df,roughness:.94,side:THREE.DoubleSide});
-const ceilingBase=new THREE.Mesh(new THREE.PlaneGeometry(41.4,33.4),ceilingMat);
+const ceilingBase=new THREE.Mesh(new THREE.PlaneGeometry(71.4,55.4),ceilingMat);
 ceilingBase.rotation.x=Math.PI/2;ceilingBase.position.set(0,4.42,0);scene.add(ceilingBase);
 const ceilingGridMat=new THREE.MeshStandardMaterial({color:0xaab8bb,roughness:.9});
-for(let x=-20;x<=20;x+=2)box(.035,.035,33.2,ceilingGridMat,x,4.38,0,false,false);
-for(let z=-16;z<=16;z+=2)box(41.2,.035,.035,ceilingGridMat,0,4.38,z,false,false);
+for(let x=-35;x<=35;x+=2)box(.035,.035,55.2,ceilingGridMat,x,4.38,0,false,false);
+for(let z=-27;z<=27;z+=2)box(71.2,.035,.035,ceilingGridMat,0,4.38,z,false,false);
 // Soft indirect light from broad ceiling panels.
 const panelMat=new THREE.MeshBasicMaterial({color:0xfff0d5,transparent:true,opacity:.7});
-for(let x=-18;x<=18;x+=6)for(let z=-14;z<=14;z+=7)box(2.3,.025,1.05,panelMat,x,4.32,z,false,false);
+for(let x=-30;x<=30;x+=10)for(let z=-21;z<=21;z+=7)box(2.3,.025,1.05,panelMat,x,4.32,z,false,false);
 
 // ceiling light panels, stylized overhead glow
-for(let x=-10;x<=10;x+=5)for(let z=-7;z<=7;z+=7){
+for(const x of [-30,-15,0,15,30])for(const z of [-21,-7,7,21]){
  const light=new THREE.PointLight(0xffe6c8,.42,10,1.65);light.position.set(x,4,z);light.castShadow=false;scene.add(light);ceilingLights.push({light,base:.42,phase:x*.7+z*.4});
  box(1.95,.09,.78,mats.white,x,3.5,z,false,false);
  const glowMat=new THREE.MeshBasicMaterial({color:0xffe7c2,transparent:true,opacity:.72});
@@ -302,6 +310,83 @@ for(const x of [-20.45,-15.55,15.55,20.45]){
  for(const z of [-12,-4,4,12]){
   box(.12,2.85,1.2,roomGlassMat,x,1.42,z,false,false);
  }
+}
+
+// V5.3: a larger, navigable office campus with distinct departments and readable landmarks.
+// East and west wings are split into three rooms while keeping wide central doorways.
+for(const z of [-9,9]){
+ roomDividerZ(z,21.25,35.7,28.4,3.4);
+ roomDividerZ(z,-35.7,-21.25,-28.4,3.4);
+}
+// North boardroom and south cafeteria have side openings and a clear route from the core.
+roomDividerX(-13,-27.5,-17.25,-22.2,3.4);roomDividerX(13,-27.5,-17.25,-22.2,3.4);
+roomDividerX(-13,17.25,27.5,22.2,3.4);roomDividerX(13,17.25,27.5,22.2,3.4);
+const wingFloorMats=[
+ new THREE.MeshStandardMaterial({color:0x91afb4,roughness:.94}),
+ new THREE.MeshStandardMaterial({color:0xc1a27d,roughness:.94}),
+ new THREE.MeshStandardMaterial({color:0x9baeb6,roughness:.94}),
+ new THREE.MeshStandardMaterial({color:0x97ad9e,roughness:.94})
+];
+for(let i=0;i<3;i++){
+ const z=-18+i*18;
+ box(13.8,.028,17.5,wingFloorMats[i],28.45,-.055,-18+i*18,false,true);
+ box(13.8,.028,17.5,wingFloorMats[(i+1)%3],-28.45,-.054,-18+i*18,false,true);
+}
+box(25,.028,9.6,wingFloorMats[2],0,-.053,-22.6,false,true);
+box(25,.028,9.6,wingFloorMats[1],0,-.052,22.6,false,true);
+// Large room signs sit above each wing entrance.
+function wingSign(text,x,z,color,rotation=0){
+ const group=new THREE.Group(),plate=new THREE.Mesh(new THREE.BoxGeometry(3.5,.68,.1),mats.dark);
+ group.add(plate);
+ const c=document.createElement('canvas');c.width=640;c.height=128;const ctx=c.getContext('2d');
+ ctx.fillStyle='#243641';ctx.fillRect(0,0,640,128);ctx.fillStyle=color;ctx.font='bold 48px system-ui';ctx.textAlign='center';ctx.fillText(text,320,82);
+ const tex=new THREE.CanvasTexture(c);tex.colorSpace=THREE.SRGBColorSpace;
+ const face=new THREE.Mesh(new THREE.PlaneGeometry(3.25,.48),new THREE.MeshBasicMaterial({map:tex}));face.position.z=.057;group.add(face);
+ group.position.set(x,2.62,z);group.rotation.y=rotation;scene.add(group);
+}
+wingSign('ЗАЛ СОВЕЩАНИЙ',0,-17.35,'#f0c17c');wingSign('СТОЛОВАЯ',0,17.35,'#f3c982',Math.PI);
+wingSign('АРХИВ · ДОСЬЕ',-28.4,-9.08,'#d7b18b');wingSign('МЕДПУНКТ',-28.4,9.08,'#a8d9a9',Math.PI);
+wingSign('ПЕЧАТНЫЙ ЦЕХ',28.4,-9.08,'#f19a8d');wingSign('ТЕХЛАБОРАТОРИЯ',28.4,9.08,'#8be0d0',Math.PI);
+// Door frames and high windows break up the long perimeter walls and help orientation.
+for(const z of [-17,17])for(const x of [-2.5,2.5])box(.16,3.05,.22,brassMat,x,1.5,z,false,false);
+for(const x of [-21,21])for(const z of [-2.5,2.5])box(.22,3.05,.16,brassMat,x,1.5,z,false,false);
+for(let x=-30;x<=30;x+=10){
+ box(3.8,1.55,.075,roomGlassMat,x,2.35,-27.74,false,false);box(3.8,1.55,.075,roomGlassMat,x,2.35,27.74,false,false);
+ box(3.95,.09,.13,trimMat,x,3.17,-27.72,false,false);box(3.95,.09,.13,trimMat,x,3.17,27.72,false,false);
+}
+for(let z=-20;z<=20;z+=10){
+ box(.075,1.55,3.8,roomGlassMat,-35.74,2.35,z,false,false);box(.075,1.55,3.8,roomGlassMat,35.74,2.35,z,false,false);
+}
+// Boardroom: a long conference table, end consoles and a wall display.
+box(8.4,.18,1.75,mats.wood,0,.82,-23.3);obstacles.push({x:0,z:-23.3,rx:4.4,rz:1.05,type:'desk'});
+for(const x of [-3,-1.5,1.5,3])for(const z of [-24.75,-21.85]){
+ const seat=box(.72,.58,.68,mats.blue,x,.34,z);seat.rotation.y=z< -23?Math.PI:0;
+}
+box(5.4,1.5,.14,mats.dark,0,2.05,-27.45,false,false);box(4.8,1.05,.06,mats.screen,0,2.08,-27.34,false,false);
+// Cafeteria: three tables leave a straight aisle back to the central office.
+for(const x of [-7,0,7]){
+ box(3.2,.16,1.55,mats.woodLight,x,.83,23.2);obstacles.push({x,z:23.2,rx:1.72,rz:.92,type:'desk'});
+ for(const side of [-1,1])for(const dx of [-.9,.9])box(.55,.52,.55,mats.red,x+dx,.31,23.2+side*1.18,false,true);
+}
+box(6,.95,.8,mats.white,0,.48,26.35);box(5.5,.07,.58,mats.blue,0,.99,26.35,false,false);
+// Archive shelves and print shop workbenches make the side wings feel functional.
+for(const z of [-23,-17,-11]){
+ box(.72,2.05,4.2,mats.wood,-33.1,1.02,z);box(.72,2.05,4.2,mats.wood,-23.9,1.02,z);
+ for(let level=0;level<4;level++)for(let n=0;n<3;n++)box(.12,.22,.78,level%2?mats.blue:mats.paper,-33.1,.38+level*.47,z-1.25+n*1.15,false,false);
+ obstacles.push({x:-33.1,z,rx:.5,rz:2.2,type:'cabinet'},{x:-23.9,z,rx:.5,rz:2.2,type:'cabinet'});
+}
+for(const z of [-20,-14,-2,4]){
+ box(5.5,.82,1.1,mats.white,33.1,.41,z);box(5.1,.05,.75,mats.dark,33.1,.85,z,false,false);
+ for(let i=0;i<4;i++)box(.7,.06,.5,mats.red,31.1+i*1.3,.89,z,false,false);
+ obstacles.push({x:33.1,z,rx:2.85,rz:.72,type:'desk'});
+}
+// A quiet medical room and a server lab add landmarks at the far ends of the wings.
+box(4.2,.18,1.25,mats.white,-28.4,.72,20.2);obstacles.push({x:-28.4,z:20.2,rx:2.2,rz:.8,type:'desk'});
+for(let i=0;i<4;i++){
+ box(.72,2.15,.82,mats.dark,24.4+i*2.65,.0,20.4);
+ box(.54,.14,.67,mats.screen,24.4+i*2.65,1.45,19.96,false,false);
+ box(.12,.045,.12,mats.green,24.4+i*2.65,1.1,19.94,false,false);
+ obstacles.push({x:24.4+i*2.65,z:20.4,rx:.56,rz:.55,type:'cabinet'});
 }
 
 // V5.1: expanded east and west wings with new themed rooms.
@@ -456,8 +541,27 @@ function addInteractableCabinet(x,z){
  const handle=new THREE.Mesh(new THREE.BoxGeometry(.045,.22,.07),mats.white);handle.position.set(.78,0,.055);door.add(handle);
  interactables.push({x,z,kind:'cabinet',label:'Шкаф для укрытия',object:door,open:false,closedY:0,openY:-1.35,hideSpot:true});
 }
+function addDistractionStation(x,z,type,label,action){
+ const group=new THREE.Group();group.position.set(x,0,z);scene.add(group);
+ if(type==='phone'){
+  const base=new THREE.Mesh(new THREE.BoxGeometry(.42,.12,.3),mats.dark);base.position.y=.99;group.add(base);
+  const handset=new THREE.Mesh(new THREE.CapsuleGeometry(.045,.25,3,7),mats.red);handset.rotation.z=Math.PI/2;handset.position.set(0,1.08,0);group.add(handset);
+  for(let i=0;i<6;i++){const key=new THREE.Mesh(new THREE.BoxGeometry(.045,.025,.035),mats.white);key.position.set(-.1+(i%3)*.09,1.065,-.07+Math.floor(i/3)*.07);group.add(key);}
+ }else if(type==='printer'){
+  const body=new THREE.Mesh(new THREE.BoxGeometry(.75,.48,.58),mats.white);body.position.y=1.15;body.castShadow=true;group.add(body);
+  const tray=new THREE.Mesh(new THREE.BoxGeometry(.48,.035,.26),mats.dark);tray.position.set(0,.91,.08);group.add(tray);
+  const light=new THREE.Mesh(new THREE.BoxGeometry(.11,.025,.035),mats.red);light.position.set(.22,1.28,.3);group.add(light);
+ }else{
+  const body=new THREE.Mesh(new THREE.CylinderGeometry(.22,.24,.7,12),mats.white);body.position.y=.37;group.add(body);
+  const cup=new THREE.Mesh(new THREE.CylinderGeometry(.09,.11,.25,10),mats.blue);cup.position.y=.84;group.add(cup);
+ }
+ interactables.push({x,z,kind:'distraction',stationType:type,label,action,object:group,cooldownUntil:0});
+}
 addInteractableDoor(-7.2,-3.6,Math.PI/2);
 addInteractableCabinet(11.9,5.1);
+addDistractionStation(-4,-5.72,'phone','Телефон','Позвони по телефону — начальник проверит звонок');
+addDistractionStation(13,-4.1,'printer','Принтер','Запусти печать — принтер привлечёт начальника');
+addDistractionStation(-13,4,'coffee','Кофемашина','Включи кофемашину — шум отвлечёт начальника');
 
 
 // character construction
@@ -541,8 +645,8 @@ function updateParticles(dt){
   if(p.life<=0){scene.remove(p.mesh);p.mesh.geometry.dispose();p.mesh.material.dispose();particles.splice(i,1);}
  }
 }
-function randomDocPos(){for(let n=0;n<140;n++){const x=-18+Math.random()*36,z=-14+Math.random()*28;let ok=Math.hypot(x-player.position.x,z-player.position.z)>3.5&&!obstacles.some(o=>Math.abs(x-o.x)<o.rx+.7&&Math.abs(z-o.z)<o.rz+.7)&&docs.every(d=>!d.active||Math.hypot(x-d.x,z-d.z)>2.5);if(ok)return{x,z};}return{x:0,z:0};}
-function fillDocs(){docs.forEach(d=>scene.remove(d.mesh));docs.length=0;for(let i=0;i<7;i++){const p=randomDocPos();spawnDoc(p.x,p.z);}}
+function randomDocPos(){for(let n=0;n<260;n++){const x=-34+Math.random()*68,z=-26+Math.random()*52;let ok=Math.hypot(x-player.position.x,z-player.position.z)>3.5&&!obstacles.some(o=>Math.abs(x-o.x)<o.rx+.7&&Math.abs(z-o.z)<o.rz+.7)&&docs.every(d=>!d.active||Math.hypot(x-d.x,z-d.z)>3.2);if(ok)return{x,z};}return{x:0,z:0};}
+function fillDocs(){docs.forEach(d=>scene.remove(d.mesh));docs.length=0;for(let i=0;i<12;i++){const p=randomDocPos();spawnDoc(p.x,p.z);}}
 // V3.4: moving office chairs, periodic events and simple generated sounds.
 const chairHazards=[];
 const chairMaterial=new THREE.MeshStandardMaterial({color:0x3c9ba8,roughness:.55});
@@ -569,9 +673,9 @@ let hideoutMemory=[],bossMemoryTarget=null,bossMemoryInspectUntil=0,bossNextMemo
 let playerTrail=[],routeHeat=new Map(),lastTrailSample=-10,playerVelocity={x:0,z:0},lastPlayerSample={x:0,z:0};
 let bossInterceptPoint=null,bossLastBlockAt=-20,bossRouteReadUntil=0;
 let bossTactic='stalker',bossTacticUntil=0;
-let taskStage=0,taskStageStart=0,taskStageDocs=0,taskCompleted=0,taskRewardClaimed=false;
+let taskStage=0,taskStageStart=0,taskStageDocs=0,taskStageDistractions=0,taskCompleted=0,taskRewardClaimed=false,shiftTasks=[];
 
-const bossPatrol=[[-10,-8],[-5,-8],[1,-8],[8,-7],[10,-1],[7,6],[0,7],[-7,5],[-10,0]];
+const bossPatrol=[[-10,-8],[-5,-8],[1,-8],[8,-7],[10,-1],[7,6],[0,7],[-7,5],[-10,0],[0,-23],[-28,-20],[-28,0],[-28,20],[28,-20],[28,0],[28,20],[0,23]];
 let noisePoint={x:0,z:0},noiseUntil=0,lastNoiseAt=-10,hiddenInCabinet=false;
 let inCover=false,coverObstacle=null,peekSide=0;
 
@@ -682,36 +786,43 @@ function beginEvent(){
   announce(messages[eventType]||'⚠️ В офисе что-то происходит',3.2);
  eventSound(eventType);sound(420,.35,'sawtooth',.055);
 }
+function makeShiftTasks(){
+ const pool=[
+  {title:'АРХИВ',desc:'Собери 5 разбросанных документов',target:5,progress:()=>docCount-taskStageDocs},
+  {title:'ТИХИЙ ЧАС',desc:'Продержись 30 секунд, не попавшись начальнику',target:30,progress:()=>elapsed-taskStageStart},
+  {title:'ОТВЛЕКАЮЩИЙ МАНЁВР',desc:'Отвлеки начальника 2 раза устройствами офиса',target:2,progress:()=>distractionCount-taskStageDistractions},
+  {title:'СРОЧНЫЙ ОТЧЁТ',desc:'Собери ещё 8 документов',target:8,progress:()=>docCount-taskStageDocs},
+  {title:'ПЕРЕЖИТЬ АВРАЛ',desc:'Продержись ещё 45 секунд',target:45,progress:()=>elapsed-taskStageStart},
+  {title:'ШУМОВАЯ МАСКИРОВКА',desc:'Отвлеки начальника 3 раза устройствами офиса',target:3,progress:()=>distractionCount-taskStageDistractions}
+ ];
+ for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]];}
+ return pool.slice(0,4).map((task,index)=>({...task,title:'ЭТАП '+(index+1)+' / '+task.title}));
+}
 const keys=new Set();let touchDirs={up:false,down:false,left:false,right:false},running=false,paused=false,ended=false,score=0,docCount=0,hp=100,elapsed=0,lastHit=0,dashUntil=0,lastDash=-5,lastFrame=0,alertUntil=0,streak=0;
+let distractionCount=0,noiseRadius=15;
 
 function updateShiftTask(){
  if(taskStage>=4){
   $('missionText').innerHTML='<b>СМЕНА ВЫПОЛНЕНА!</b><br>Ты пережил офисный апокалипсис. Продолжай собирать документы ради рекорда.';
   $('missionBar').style.width='100%';return;
  }
- const tasks=[
-  {title:'ЭТАП 1 / АРХИВ',desc:'Собери 5 разбросанных документов',target:5,progress:()=>docCount-taskStageDocs},
-  {title:'ЭТАП 2 / ПЕРЕЖИТЬ АВРАЛ',desc:'Продержись 35 секунд после тревоги',target:35,progress:()=>elapsed-taskStageStart},
-  {title:'ЭТАП 3 / СЛУЖЕБНОЕ РАССЛЕДОВАНИЕ',desc:'Собери ещё 8 документов, пока начальник прочёсывает офис',target:8,progress:()=>docCount-taskStageDocs},
-  {title:'ЭТАП 4 / ПОСЛЕДНИЙ РЫВОК',desc:'Продержись ещё 45 секунд и сохрани здоровье',target:45,progress:()=>elapsed-taskStageStart}
- ];
- const t=tasks[Math.min(taskStage,tasks.length-1)];
+ const t=shiftTasks[Math.min(taskStage,shiftTasks.length-1)];
  const raw=Math.max(0,t.progress()),progress=Math.min(t.target,raw);
  $('missionText').innerHTML='<b>'+t.title+'</b><br>'+t.desc+'<br><span style="color:#b7652d;font-weight:900">'+Math.floor(progress)+' / '+t.target+'</span>';
  $('missionBar').style.width=(progress/t.target*100)+'%';
- if(progress>=t.target&&taskStage<tasks.length){
-  taskCompleted++;taskStage++;taskStageStart=elapsed;taskStageDocs=docCount;
+  if(progress>=t.target&&taskStage<shiftTasks.length){
+   taskCompleted++;taskStage++;taskStageStart=elapsed;taskStageDocs=docCount;taskStageDistractions=distractionCount;
   score+=250;hp=Math.min(100,hp+10);
   announce('🎯 ЭТАП ВЫПОЛНЕН! +250 очков · +10 здоровья',2.5);
   sound(760,.16,'sine',.035);
-  if(taskStage>=tasks.length){
+  if(taskStage>=shiftTasks.length){
    $('missionText').innerHTML='<b>СМЕНА ВЫПОЛНЕНА!</b><br>Ты пережил офисный апокалипсис. Продолжай собирать документы ради рекорда.';
    $('missionBar').style.width='100%';
   }
  }
 }
 function setText(){ updateShiftTask(); $('score').textContent=String(Math.floor(score)).padStart(3,'0');$('docs').textContent=docCount;$('time').textContent=String(Math.floor(elapsed/60)).padStart(2,'0')+':'+String(Math.floor(elapsed%60)).padStart(2,'0');$('hpText').textContent=Math.ceil(hp)+'%';$('hpBar').style.width=Math.max(0,hp)+'%';$('hpBar').style.background=hp<30?'#ed5656':hp<60?'#f1ad42':'#43b879';$('alert').classList.toggle('show',elapsed<alertUntil);}
-function collides(x,z,r=.36){if(Math.abs(x)>20.15||Math.abs(z)>16.15)return true;return obstacles.some(o=>Math.abs(x-o.x)<o.rx+r&&Math.abs(z-o.z)<o.rz+r);}
+ function collides(x,z,r=.36){if(Math.abs(x)>35.15||Math.abs(z)>27.15)return true;return obstacles.some(o=>Math.abs(x-o.x)<o.rx+r&&Math.abs(z-o.z)<o.rz+r);}
 function findCoverTarget(){
  let best=null,bestDist=2.65;
  for(const o of obstacles){
@@ -758,7 +869,8 @@ function hasClearSight(x1,z1,x2,z2){
 }
 function moveWithCollision(obj,dx,dz,r){let nx=obj.position.x+dx,nz=obj.position.z;if(!collides(nx,nz,r))obj.position.x=nx;nx=obj.position.x;nz=obj.position.z+dz;if(!collides(nx,nz,r))obj.position.z=nz;}
 function resetGame(){particles.forEach(p=>{scene.remove(p.mesh);p.mesh.geometry.dispose();p.mesh.material.dispose();});particles.length=0;score=0;docCount=0;hp=100;elapsed=0;lastHit=0;dashUntil=0;lastDash=-5;alertUntil=0;streak=0;comboTimer=0;nextBossLunge=13;bossLungeUntil=0;lastFootstep=0;bossState='patrol';lastKnownPlayer={x:0,z:0};investigateUntil=0;searchUntil=0;bossSuspicion=0;bossLookUntil=0;bossDoorTarget=null;bossDoorCooldown=0;bossWaypoint=0;bossAnimPhase=0;bossLastSeenAt=-20;hideoutMemory=[];bossMemoryTarget=null;bossMemoryInspectUntil=0;bossNextMemoryCheck=12;bossMemoryReturnState='patrol';playerTrail=[];routeHeat.clear();lastTrailSample=-10;playerVelocity={x:0,z:0};lastPlayerSample={x:0,z:0};bossInterceptPoint=null;bossLastBlockAt=-20;bossRouteReadUntil=0;bossTactic='stalker';bossTacticUntil=0;taskStage=0;taskStageStart=0;taskStageDocs=0;taskCompleted=0;taskRewardClaimed=false;noisePoint={x:0,z:0};noiseUntil=0;lastNoiseAt=-10;hiddenInCabinet=false;inCover=false;coverObstacle=null;peekSide=0;$('stealthStatus').style.display='none';$('coverStatus').style.display='none';eventType="normal";eventUntil=0;nextEvent=22;noticeUntil=0;chairLastHit=-10;cartHitAt=-10;lastFallHit=-10;nextFall=8.5;
-fallingHazards.forEach(h=>{scene.remove(h.group);scene.remove(h.ring);});fallingHazards.length=0;
+ distractionCount=0;taskStageDistractions=0;noiseRadius=15;shiftTasks=makeShiftTasks();interactables.forEach(it=>{if(it.kind==='distraction')it.cooldownUntil=0;});
+ fallingHazards.forEach(h=>{scene.remove(h.group);scene.remove(h.ring);});fallingHazards.length=0;
 $("eventBanner").classList.add("hidden");stopAmbience();stopMusic();$("settingsOverlay").classList.add("hidden");running=false;paused=false;ended=false;player.position.set(0,0,9);player.rotation.y=0;yaw=0;pitch=0;boss.position.set(-11,0,-9);boss.rotation.y=0;boss.userData.head.rotation.set(0,0,0);fillDocs();$('startOverlay').classList.remove('hidden');$('pauseOverlay').classList.add('hidden');$('endOverlay').classList.add('hidden');$('pauseBtn').textContent='Ⅱ Пауза';setText();}
 function startGame(){running=true;paused=false;ended=false;shiftStartedAt=elapsed;$('startOverlay').classList.add('hidden');$('pauseOverlay').classList.add('hidden');$('endOverlay').classList.add('hidden');lastFrame=performance.now();startAmbience();startMusic();}
 function pauseGame(){if(!running||ended)return;paused=true;running=false;stopAmbience();stopMusic();$('pauseOverlay').classList.remove('hidden');$('pauseBtn').textContent='▶ Продолжить';}
@@ -796,6 +908,14 @@ function interact(){
  }
  const item=getInteractTarget();
  if(!item){announce('Подойди ближе и посмотри на дверь или шкаф',1.3);return;}
+ if(item.kind==='distraction'){
+  if(elapsed<item.cooldownUntil){announce('Устройство ещё перезаряжается',1);return;}
+  item.cooldownUntil=elapsed+12;distractionCount++;noisePoint={x:item.x,z:item.z};noiseUntil=elapsed+6;noiseRadius=24;
+  score+=75;handActionUntil=elapsed+.35;handAction=1;
+  announce('📣 '+item.action+' · '+distractionCount+' отвлечений',2.2);
+  sound(item.stationType==='phone'?720:item.stationType==='printer'?310:480,.32,item.stationType==='printer'?'sawtooth':'triangle',.055);
+  return;
+ }
  if(item.hideSpot){
   hiddenInCabinet=true;item.open=true;item.object.rotation.y=item.openY;rememberHideout('cabinet',item.x,item.z);
   player.position.set(item.x,0,item.z);
@@ -811,7 +931,7 @@ function interact(){
 function dash(){if(!running||elapsed-lastDash<3.4)return;lastDash=elapsed;dashUntil=elapsed+.34;cameraPulse=.9;cameraShake=Math.max(cameraShake,.12);noisePoint={x:player.position.x,z:player.position.z};noiseUntil=elapsed+2.2;sound(310,.16,"triangle",.04);}
 function update(dt){if(!running)return;elapsed+=dt;score+=dt*2.5;
  const targetInteract=getInteractTarget();$('interactPrompt').style.display=targetInteract?'block':'none';
- if(targetInteract)$('interactPrompt').textContent='E — '+(targetInteract.open?'закрыть':'открыть')+' · '+targetInteract.label;
+  if(targetInteract)$('interactPrompt').textContent='E — '+(targetInteract.kind==='distraction'?'использовать':targetInteract.open?'закрыть':'открыть')+' · '+targetInteract.label;
  if(elapsed>=nextEvent)beginEvent();
  if(eventType!=='normal'&&elapsed>=eventUntil){eventType='normal';announce('✅ Офис снова относительно спокоен',2);}
  if(elapsed>noticeUntil)$('eventBanner').classList.add('hidden');
@@ -893,7 +1013,7 @@ function update(dt){if(!running)return;elapsed+=dt;score+=dt*2.5;
  if(len&&elapsed-lastFootstep>(sprinting?.22:(inCover?.72:.34))){
   lastFootstep=elapsed;sound(sprinting?105:82,.045,'triangle',sprinting?.012:.007);
   noisePoint={x:player.position.x,z:player.position.z};
-  noiseUntil=elapsed+(sprinting?1.25:.65);
+  noiseUntil=elapsed+(sprinting?1.25:.65);noiseRadius=sprinting?15:8;
   lastNoiseAt=elapsed;
  }
  if(isDash)cameraPulse=Math.max(cameraPulse,.7);
@@ -908,7 +1028,7 @@ function update(dt){if(!running)return;elapsed+=dt;score+=dt*2.5;
  const clear=hasClearSight(boss.position.x,boss.position.z,player.position.x,player.position.z);
  const visualRange=eventType==='blackout'?6.4:eventType==='paperstorm'?8.2:12.2;
  const visible=!concealed&&dist<visualRange&&clear&&(facing>.18||dist<2.2);
- const heard=!hiddenInCabinet&&elapsed<noiseUntil&&Math.hypot(noisePoint.x-boss.position.x,noisePoint.z-boss.position.z)<(eventType==='rush'?19:15);
+  const heard=!hiddenInCabinet&&elapsed<noiseUntil&&Math.hypot(noisePoint.x-boss.position.x,noisePoint.z-boss.position.z)<Math.max(noiseRadius,eventType==='rush'?19:15);
  if(visible){
   bossSuspicion=Math.min(1,bossSuspicion+dt*(dist<5?1.7:.85));
   lastKnownPlayer={x:player.position.x,z:player.position.z};bossLastSeenAt=elapsed;
@@ -934,7 +1054,7 @@ function update(dt){if(!running)return;elapsed+=dt;score+=dt*2.5;
   // Predict a short lead, rather than following the player's current position.
   const lead=Math.min(1.65,Math.max(.55,dist/5.2));
   let predX=player.position.x+playerVelocity.x*lead,predZ=player.position.z+playerVelocity.z*lead;
-  predX=Math.max(-13.2,Math.min(13.2,predX));predZ=Math.max(-10.2,Math.min(10.2,predZ));
+  predX=Math.max(-34.2,Math.min(34.2,predX));predZ=Math.max(-26.2,Math.min(26.2,predZ));
   // If the predicted point is blocked, choose an open side approach and cut off the lane.
   if(collides(predX,predZ,.5)){
    const sides=[[-playerVelocity.z,playerVelocity.x],[playerVelocity.z,-playerVelocity.x]];
@@ -1089,7 +1209,7 @@ $('settingsResetBtn').addEventListener('click',()=>{$('volumeSetting').value=65;
 $('volumeSetting').addEventListener('input',()=>{$('volumeValue').textContent=$('volumeSetting').value+'%';});
 $('ambienceSetting').addEventListener('change',saveSettings);
 $('qualitySetting').addEventListener('change',saveSettings);
-$('startBtn').addEventListener('click',startGame);$('pauseBtn').addEventListener('click',()=>running?pauseGame():paused?resumeGame():null);$('restartBtn').addEventListener('click',resetGame);$('resumeBtn').addEventListener('click',resumeGame);$('pauseRestartBtn').addEventListener('click',()=>{resetGame();startGame();});$('againBtn').addEventListener('click',()=>{resetGame();startGame();});$('closeEndBtn').addEventListener('click',()=>$('endOverlay').classList.add('hidden'));$('dashBtn').addEventListener('pointerdown',e=>{e.preventDefault();dash();});$('howBtn').addEventListener('click',()=>{const p=$('startOverlay').querySelector('p');p.innerHTML='<b>Управление:</b> WASD — ходьба, мышь — осмотр, Shift — бег, Space — рывок, E — взаимодействие, C — укрыться за столом, Q/R — выглянуть, Esc — пауза. Собирай документы сериями для бонусных очков. Начальник слышит бег и рывки. Прячься в шкафах и за столами, выглядывай клавишами Q/R. На телефоне используй экранные стрелки и кнопку RUSH. Собирай жёлтые папки и избегай начальника.';});
+$('startBtn').addEventListener('click',startGame);$('pauseBtn').addEventListener('click',()=>running?pauseGame():paused?resumeGame():null);$('restartBtn').addEventListener('click',resetGame);$('resumeBtn').addEventListener('click',resumeGame);$('pauseRestartBtn').addEventListener('click',()=>{resetGame();startGame();});$('againBtn').addEventListener('click',()=>{resetGame();startGame();});$('closeEndBtn').addEventListener('click',()=>$('endOverlay').classList.add('hidden'));$('dashBtn').addEventListener('pointerdown',e=>{e.preventDefault();dash();});$('howBtn').addEventListener('click',()=>{const p=$('startOverlay').querySelector('p');p.innerHTML='<b>Управление:</b> WASD — ходьба, мышь — осмотр, Shift — бег, Space — рывок, E — взаимодействие, C — укрыться за столом, Q/R — выглянуть, Esc — пауза. Собирай документы сериями для бонусных очков. Начальник слышит бег и рывки. Нажимай E у телефона, принтера или кофемашины, чтобы отвлечь его; устройства перезаряжаются 12 секунд. Прячься в шкафах и за столами, выглядывай клавишами Q/R. На телефоне используй экранные стрелки и кнопку RUSH. Собирай жёлтые папки и избегай начальника.';});
 let touchLookId=null,touchLookX=0,touchLookY=0;
 renderer.domElement.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'){touchLookId=e.pointerId;touchLookX=e.clientX;touchLookY=e.clientY;}});
 renderer.domElement.addEventListener('pointermove',e=>{if(touchLookId!==e.pointerId||e.pointerType!=='touch')return;const mx=e.clientX-touchLookX,my=e.clientY-touchLookY;touchLookX=e.clientX;touchLookY=e.clientY;yaw+=mx*.006;pitch=Math.max(-1.15,Math.min(1.15,pitch-my*.005));});
@@ -1098,7 +1218,7 @@ document.querySelectorAll('[data-dir]').forEach(btn=>{const dir=btn.dataset.dir;
 // Optional Yandex Games SDK hook. Actual online leaderboard requires a configured leaderboard in the Yandex Games console.
 function initYandexSDK(){if(!window.YaGames)return;window.YaGames.init().then(ysdk=>{window.ysdk=ysdk;console.info('Yandex Games SDK initialized');}).catch(err=>console.warn('Yandex SDK initialization failed',err));}
 const sdk=document.createElement('script');sdk.src='https://yandex.ru/games/sdk/v2';sdk.onload=initYandexSDK;sdk.onerror=()=>console.info('Yandex Games SDK unavailable outside platform');document.head.appendChild(sdk);
-loadSettings();bestScore=Number(storageGet('officeApocBest','0'))||0;fillDocs();setText();requestAnimationFrame(animate);
+loadSettings();bestScore=Number(storageGet('officeApocBest','0'))||0;shiftTasks=makeShiftTasks();fillDocs();setText();requestAnimationFrame(animate);
 }
 bootGame();
 </script>
